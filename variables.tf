@@ -34,10 +34,10 @@ variable "s3_access_method" {
   }  
 }
 
-variable "need_placeholder_website" {
-  type        = bool
-  default     = true
-  description = "A <Coming Soon> website placeholder will be deployed if required"
+variable "website_source_folder" {
+  type        = string
+  default     = null
+  description = "Source folder of your website build"
 }
 
 variable "tags" {

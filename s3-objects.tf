@@ -1,5 +1,5 @@
 resource "aws_s3_object" "index_html" {
-  count = (var.need_placeholder_website) ? 1 : 0
+  count = (var.website_source_folder == null) ? 1 : 0
 
   depends_on   = [aws_s3_bucket.web_portal]
   bucket       = local.bucket_name
@@ -9,7 +9,7 @@ resource "aws_s3_object" "index_html" {
 }
 
 resource "aws_s3_object" "error_html" {
-  count = (var.need_placeholder_website) ? 1 : 0
+  count = (var.website_source_folder == null) ? 1 : 0
 
   depends_on   = [aws_s3_bucket.web_portal]
   bucket       = local.bucket_name
