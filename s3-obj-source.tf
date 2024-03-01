@@ -80,7 +80,7 @@ locals {
 }
 
 resource "aws_s3_object" "website_source" {
-  for_each     = (var.website_source_folder != null) ? fileset(var.website_source_folder, "**") : []
+  for_each     = (var.website_source_folder != null) ? fileset(var.website_source_folder, "**") : toset([])
   bucket       = local.bucket_name
   key          = each.value
   source       = "${var.website_source_folder}/${each.value}"
