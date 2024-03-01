@@ -21,7 +21,7 @@ resource "aws_cloudfront_distribution" "public" {
   count = (local.origin_access == "public") ? 1 : 0
 
   origin {
-    domain_name = aws_s3_bucket_website_configuration.web_portal_webConfig.website_endpoint
+    domain_name = aws_s3_bucket_website_configuration.root.website_endpoint
     origin_id   = "S3-${local.bucket_name}"
     custom_origin_config {
       http_port              = 80
@@ -82,7 +82,7 @@ resource "aws_cloudfront_distribution" "public" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.ssl.arn
+    acm_certificate_arn      = aws_acm_certificate.root.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
@@ -94,7 +94,7 @@ resource "aws_cloudfront_distribution" "oac" {
   count = (local.origin_access == "oac") ? 1 : 0
 
   origin {
-    domain_name              = aws_s3_bucket.web_portal.bucket_regional_domain_name
+    domain_name              = aws_s3_bucket.root.bucket_regional_domain_name
     origin_id                = "S3-${local.bucket_name}"
     origin_access_control_id = aws_cloudfront_origin_access_control.oac[0].id
   }
@@ -146,7 +146,7 @@ resource "aws_cloudfront_distribution" "oac" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.ssl.arn
+    acm_certificate_arn      = aws_acm_certificate.root.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
@@ -159,7 +159,7 @@ resource "aws_cloudfront_distribution" "oai" {
   count = (local.origin_access == "oai") ? 1 : 0
 
   origin {
-    domain_name = aws_s3_bucket.web_portal.bucket_regional_domain_name
+    domain_name = aws_s3_bucket.root.bucket_regional_domain_name
     origin_id   = "S3-${local.bucket_name}"
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.oai[0].cloudfront_access_identity_path
@@ -213,7 +213,7 @@ resource "aws_cloudfront_distribution" "oai" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.ssl.arn
+    acm_certificate_arn      = aws_acm_certificate.root.arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }

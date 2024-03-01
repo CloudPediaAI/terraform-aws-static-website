@@ -3,7 +3,7 @@ resource "aws_cloudfront_distribution" "public_www" {
   count = (var.need_www_redirect) ? 1 : 0
 
   origin {
-    domain_name = aws_s3_bucket_website_configuration.web_portal_redirect_config[0].website_endpoint
+    domain_name = aws_s3_bucket_website_configuration.www[0].website_endpoint
     origin_id   = "S3-${local.www_bucket_name}"
     custom_origin_config {
       http_port              = 80
@@ -63,7 +63,7 @@ resource "aws_cloudfront_distribution" "public_www" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate.ssl.arn
+    acm_certificate_arn      = aws_acm_certificate.www[0].arn
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }

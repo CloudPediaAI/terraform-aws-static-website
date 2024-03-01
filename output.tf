@@ -1,5 +1,5 @@
 output "bucket" {
-  value = aws_s3_bucket.web_portal
+  value = aws_s3_bucket.root
   description = "S3 Bucket created for the Static Website"
 }
 
