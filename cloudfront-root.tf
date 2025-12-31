@@ -151,7 +151,9 @@ resource "aws_cloudfront_distribution" "oac" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
-  tags = var.tags
+  tags = merge(var.tags, {
+    Name = local.bucket_name
+  })
 }
 
 

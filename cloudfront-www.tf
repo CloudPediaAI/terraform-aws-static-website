@@ -68,5 +68,7 @@ resource "aws_cloudfront_distribution" "public_www" {
     minimum_protocol_version = "TLSv1.2_2021"
   }
 
-  tags = var.tags
+  tags = merge(var.tags, {
+    Name = local.www_bucket_name
+  })
 }
